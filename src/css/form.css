@@ -51,7 +51,7 @@
     height: 40px;
     margin: 0;
     border: 1px solid #808080;
-    margin-right: 8px;
+    padding: 8px 16px;
 }
 
 .form-email:hover {
@@ -61,4 +61,5 @@
 .form-message {
     width: 360px;
     height: 80px;
+    padding: 8px 16px;
 }
