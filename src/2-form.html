@@ -7,11 +7,21 @@
     <title>Form</title>
 
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/form.css" />
   </head>
   <body>
     <section>
-      <a href="./index.html">Go to home</a>
-      <h1>Welcome to page 3</h1>
+      <a class="link-2" href="./index.html">Go to home</a>
+      <!-- <h1>Welcome to page 3</h1> -->
+      <form class="feedback-form" autocomplete="off">
+        <label class="form-label"> Email </label>
+        <input type="email" name="email" class="form-email" autofocus />
+
+        <label class="form-label"> Message</label>
+        <textarea name="message" rows="8" class="form-message"></textarea>
+
+        <button type="submit" class="form-button">Submit</button>
+      </form>
     </section>
 
     <script type="module" src="./js/2-form.js"></script>

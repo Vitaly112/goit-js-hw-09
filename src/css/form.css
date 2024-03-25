@@ -1,0 +1,64 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  width: 408px;
+  height: 296px;
+  padding:24px;
+  gap: 8px;
+} 
+
+
+.form-label {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 400;
+    color: #2E2F42;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    
+}
+
+.form-button {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #ffffff;
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 16px;
+    background-color: #4E75FF;
+    cursor: pointer;
+    margin-top: auto;
+       
+}
+
+.form-button:hover {
+    background-color: #6C8CFF;
+    border: none;
+}
+
+.form-email {
+    width: 360px;
+    height: 40px;
+    margin: 0;
+    border: 1px solid #808080;
+    margin-right: 8px;
+}
+
+.form-email:hover {
+    border: 1px solid #000000;
+}
+
+.form-message {
+    width: 360px;
+    height: 80px;
+}
