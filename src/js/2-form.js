@@ -1,45 +1,37 @@
-const LOCAL_KEY_EMAIL = "feedback-form-email";
-const LOCAL_KEY_MSG   = "feedback-form-msg";
-const inputEmail   = document.querySelector(".form-email");
+const LOCAL_KEY_STATE = "feedback-form-state";
+const inputEmail = document.querySelector("input[type='email']");
 const inputMessage = document.querySelector("textarea");
 const form = document.querySelector(".feedback-form");
 
 form.addEventListener("submit", handleSubmit);
-inputEmail.addEventListener("input", onEmailInput);
+inputEmail.addEventListener("input", handleInputChange);
+inputMessage.addEventListener("input", handleInputChange);
 reload();
 
-inputMessage.addEventListener("input", onMessageInput);
-reload();
-
-
-function onEmailInput(event) {
-    const emailText = event.target.value;
-    localStorage.setItem(LOCAL_KEY_EMAIL, emailText);
+function handleInputChange(event) {
+    const { name, value } = event.target;
+    const trimmedValue = value.trim(); 
+    localStorage.setItem(name, trimmedValue);
 }
 
-
-function onMessageInput(event) {
-    const messageText = event.target.value;
-    localStorage.setItem(LOCAL_KEY_MSG, messageText);
-} 
-
 function reload() {
-    const savedEmail = localStorage.getItem(LOCAL_KEY_EMAIL);
+    const savedState = JSON.parse(localStorage.getItem(LOCAL_KEY_STATE)) || {};
+    const savedEmail = savedState.email;
+    const savedMessage = savedState.message;
+    
     if (savedEmail) {
         inputEmail.value = savedEmail;
     }
-        const savedMessage = localStorage.getItem(LOCAL_KEY_MSG);
+    
     if (savedMessage) {
         inputMessage.value = savedMessage;
     }
 }
 
-
 function handleSubmit(event) {
     event.preventDefault();
     console.log("handleSubmit :", event);
     console.log("Ваше повідомлення відправлено");
-    localStorage.removeItem(LOCAL_KEY_EMAIL);
-    localStorage.removeItem(LOCAL_KEY_MSG);
+    localStorage.removeItem(LOCAL_KEY_STATE);
     event.currentTarget.reset();
 }
