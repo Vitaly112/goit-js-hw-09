@@ -1,37 +1,47 @@
-const LOCAL_KEY_STATE = "feedback-form-state";
-const inputEmail = document.querySelector("input[type='email']");
-const inputMessage = document.querySelector("textarea");
-const form = document.querySelector(".feedback-form");
+const LOCAL_KEY = "feedback-form-state"; 
+const form = document.querySelector(".feedback-form"); 
 
 form.addEventListener("submit", handleSubmit);
-inputEmail.addEventListener("input", handleInputChange);
-inputMessage.addEventListener("input", handleInputChange);
+form.addEventListener("input", onTextInput); 
 reload();
 
-function handleInputChange(event) {
-    const { name, value } = event.target;
-    const trimmedValue = value.trim(); 
-    localStorage.setItem(name, trimmedValue);
-}
+
+function onTextInput(event) {
+    let savedInput = localStorage.getItem(LOCAL_KEY);
+    savedInput = savedInput ? JSON.parse(savedInput) : {};
+    let { email, message } = form.elements;
+    savedInput = {
+      ...savedInput, 
+      email: email.value.trim(),
+      message: message.value.trim(),
+    };
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(savedInput));
+  }
 
 function reload() {
-    const savedState = JSON.parse(localStorage.getItem(LOCAL_KEY_STATE)) || {};
-    const savedEmail = savedState.email;
-    const savedMessage = savedState.message;
-    
-    if (savedEmail) {
-        inputEmail.value = savedEmail;
-    }
-    
-    if (savedMessage) {
-        inputMessage.value = savedMessage;
-    }
+  let savedInput = localStorage.getItem(LOCAL_KEY);
+  if (savedInput) {
+    savedInput = JSON.parse(savedInput);
+    Object.entries(savedInput).forEach(([name, value]) => {
+      form.elements[name].value = value ?? '';
+    })
+  }
 }
+
 
 function handleSubmit(event) {
     event.preventDefault();
-    console.log("handleSubmit :", event);
-    console.log("Ваше повідомлення відправлено");
-    localStorage.removeItem(LOCAL_KEY_STATE);
+  
+    const { email, message } = event.currentTarget.elements;
+  
+   
+    if (email.value.trim() === '' || message.value.trim() === '') {
+      alert('Будь ласка, заповніть обидва поля форми.');
+      return;
+    }
+  
+  
+    console.log({ email: email.value, message: message.value });
+    localStorage.removeItem(LOCAL_KEY);
     event.currentTarget.reset();
-}
+  }
